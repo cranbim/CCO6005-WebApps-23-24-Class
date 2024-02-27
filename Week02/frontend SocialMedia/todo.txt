@@ -1,0 +1,21 @@
+simple input with post button (why not submit)
+event onchange
+post
+handle post and history
+event oninput (live changes)
+    checking for validation rules, or our 5 word limit
+enter key - prevent default and trigger post
+
+What next?
+send and recieve data to a backend (simple node, using JSON data)
+persistent JSON database
+user identification
+
+push/pull notifications?
+
+URL query strings
+const queryString = window.location.search;
+console.log(queryString);
+const urlParams = new URLSearchParams(queryString);
+const product = urlParams.get('product')
+console.log(product);
