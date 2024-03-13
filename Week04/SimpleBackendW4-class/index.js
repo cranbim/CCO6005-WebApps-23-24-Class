@@ -102,3 +102,14 @@ app.post('/register', (request, response)=>{
     }
     console.log(users.getUsers())
 })
+
+const postData = require('./posts-data.js')
+
+app.post('/newpost',(request, response) => {
+    postData.addNewPost(request.session.userid, request.body.message)
+    response.redirect('./application.html')
+})
+
+app.get('/getposts',(request,response)=>{
+    response.json({posts:postData.getPosts(5)})
+})

@@ -14,5 +14,38 @@
         <a href="register.html">Register</a>
         <a href="app">Application</a>
     </nav>
+    <h2>New post</h2>
+    <form action="/newpost" method="POST">
+        <label>Message</label>
+        <input type="text" id="message" name="message">
+        <input type="submit" value="Post message">
+    </form>
+    <div>
+        <ul id="recent-posts">
+            <li>one</li>
+            <li>two</li>
+        </ul>
+    </div>
+    <script>
+        let recentPostsList=document.getElementById('recent-posts')
+
+        fetch('/getposts')
+            .then(response=>response.json())
+            .then(fetchedData=>{
+                console.log(fetchedData)
+                processPostData(fetchedData.posts)
+            })
+
+        function processPostData(data){
+            recentPostsList.innerHTML=''
+            data.forEach(function(post){
+                let li=document.createElement('li')
+                let liText=document.createElement('p')
+                liText.textContent=`${post.message} posted by: ${post.postedBy} (#${post.postID})`
+                li.appendChild(liText)
+                recentPostsList.appendChild(li)
+            })
+        }
+    </script>
 </body>
 </html>
