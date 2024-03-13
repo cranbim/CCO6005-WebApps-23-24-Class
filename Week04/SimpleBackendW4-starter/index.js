@@ -77,6 +77,9 @@ app.post('/login', (request, response)=>{
             console.log('password wrong')
             response.redirect('/loginfailed.html')
         }
+    } else {
+        console.log('username not found')
+        response.redirect('/loginfailed.html')
     }
     console.log(users.getUsers())
 })

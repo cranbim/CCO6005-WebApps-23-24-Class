@@ -99,19 +99,19 @@ app.post('/register', (request, response)=>{
     console.log(users.getUsers())
 })
 
-// const postData=require('./posts-data.js')
+const postData=require('./posts-data.js')
 
-// app.post('/newpost',(request, response) =>{
-//     console.log(request.body)
-//     console.log(request.session.userid)
-//     postData.addNewPost(request.session.userid, request.body)
-//     response.redirect('/postsuccessful.html')
-// })
+app.post('/newpost',(request, response) =>{
+    console.log(request.body)
+    console.log(request.session.userid)
+    postData.addNewPost(request.session.userid, request.body)
+    response.redirect('/postsuccessful.html')
+})
 
-// app.get('/getposts',(request, response)=>{
-//     response.json(
-//         {posts:postData.getPosts(5)}
+app.get('/getposts',(request, response)=>{
+    response.json(
+        {posts:postData.getPosts(5)}
         
-//     )
-// })
+    )
+})
 
