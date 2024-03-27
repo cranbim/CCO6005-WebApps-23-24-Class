@@ -34,6 +34,10 @@ app.use(sessions({
     resave: false 
 }));
 
+require('dotenv').config()
+console.log(process.env.MY_ABSOLUTE_SECRET)
+
+
 //test that user is logged in with a valid session
 function checkLoggedIn(request, response, nextAction){
     if(request.session){
