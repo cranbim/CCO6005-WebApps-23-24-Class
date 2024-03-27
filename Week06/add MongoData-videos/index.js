@@ -35,7 +35,17 @@ app.use(sessions({
 }));
 
 require('dotenv').config()
-console.log(process.env.MY_SUPER_SECRET)
+const mongoDBPassword=process.env.MONGODBPASSWORD
+const myUniqueDatabase="DaveWeek6Demo"
+
+const mongoose=require('mongoose')
+const connectionString=`mongodb+srv://CCO6005-00:${mongoDBPassword}@cluster0.lpfnqqx.mongodb.net/${myUniqueDatabase}?retryWrites=true&w=majority`
+mongoose.connect(connectionString)
+
+//mongoose.connect(`mongodb+srv://CCO6005-00:${mongoDBPassword}@cluster0.lpfnqqx.mongodb.net/DJWApp?retryWrites=true&w=majority`)​
+const postData=require('./models/post-data.js')
+
+
 
 //test that user is logged in with a valid session
 function checkLoggedIn(request, response, nextAction){
@@ -84,7 +94,6 @@ app.post('/login', (request, response)=>{
     console.log(users.getUsers())
 })
 
-const postData=require('./posts-data.js')
 
 app.post('/newpost',(request, response) =>{
     console.log(request.body)
@@ -93,9 +102,9 @@ app.post('/newpost',(request, response) =>{
     response.redirect('/postsuccessful.html')
 })
 
-app.get('/getposts',(request, response)=>{
+app.get('/getposts',async (request, response)=>{
     response.json(
-        {posts:postData.getPosts(5)}
+        {posts:await postData.getPosts(5)}
         
     )
 })
