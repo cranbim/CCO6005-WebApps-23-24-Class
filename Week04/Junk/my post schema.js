@@ -1,11 +1,16 @@
 let post={
     user: userID, //number
-    timeposted: Date.now(), //
+    timeposted: Date.now(), //date
     prompt: promptText, //text
     message: message, //text
     likes: 0, //count
     comments: [
         {
+            comment: message, //text
+            commentBy: userID, //number or login name
+            date: Date.now(), //date
+            likes: 0 //count
+        }, {
             comment: message, //text
             commentBy: userID, //number or login name
             date: Date.now(), //date
