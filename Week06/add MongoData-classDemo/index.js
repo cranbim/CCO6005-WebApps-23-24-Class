@@ -26,13 +26,27 @@ const cookieParser = require("cookie-parser");
 //make cookie parser middleware available
 app.use(cookieParser());
 
+
+const mySessionSecret=process.env.MYSESSIONSECRET
 //load sessions middleware, with some config
 app.use(sessions({
-    secret: "a secret that only i know",
+    secret: mySessionSecret,
     saveUninitialized:true,
     cookie: { maxAge: oneHour },
     resave: false 
 }));
+
+require('dotenv').config()
+console.log(process.env.MY_ABSOLUTE_SECRET)
+
+//load mongoose and connect to the database
+const mongoose = require('mongoose')
+const mongoDBPassword=process.env.MONGODBPASSWORD
+const myUniqueDBName="SimplePostWk6"
+mongoose.connect(`mongodb+srv://CCO6005-00:${mongoDBPassword}@cluster0.lpfnqqx.mongodb.net/${myUniqueDBName}?retryWrites=true&w=majority`)
+
+const postData=require('./models/post-data.js')
+
 
 //test that user is logged in with a valid session
 function checkLoggedIn(request, response, nextAction){
@@ -81,18 +95,17 @@ app.post('/login', (request, response)=>{
     console.log(users.getUsers())
 })
 
-const postData=require('./posts-data.js')
 
 app.post('/newpost',(request, response) =>{
     console.log(request.body)
-    console.log(request.session.userid)
+    // console.log("userid in newpost:" + request.session.userid)
     postData.addNewPost(request.session.userid, request.body)
     response.redirect('/postsuccessful.html')
 })
 
-app.get('/getposts',(request, response)=>{
+app.get('/getposts', async (request, response)=>{
     response.json(
-        {posts:postData.getPosts(5)}
+        {posts: await postData.getPosts(5)}
         
     )
 })
