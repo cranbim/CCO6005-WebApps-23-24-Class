@@ -45,7 +45,8 @@ mongoose.connect(connectionString)
 //mongoose.connect(`mongodb+srv://CCO6005-00:${mongoDBPassword}@cluster0.lpfnqqx.mongodb.net/DJWApp?retryWrites=true&w=majority`)​
 const postData=require('./models/post-data.js')
 
-
+const multer=require('multer')
+const upload=multer({dest: './public/uploads'})
 
 //test that user is logged in with a valid session
 function checkLoggedIn(request, response, nextAction){
@@ -95,10 +96,15 @@ app.post('/login', async (request, response)=>{
 })
 
 
-app.post('/newpost',(request, response) =>{
+app.post('/newpost', upload.single('myImage'), (request, response) =>{
     console.log(request.body)
     console.log(request.session.userid)
-    postData.addNewPost(request.session.userid, request.body)
+    console.log(request.file)
+    let filename=null
+    if(request.file && request.file.filename){ //check we have a file and that it has a file name
+        filename='uploads/'+request.file.filename
+    }
+    postData.addNewPost(request.session.userid, request.body, filename)
     response.redirect('/postsuccessful.html')
 })
 

@@ -14,8 +14,9 @@
         <a href="register.html">Register</a>
         <a href="app">Application</a>
     </nav>
-    <form action="/newpost" method="POST">
-        <label>Message</label>
+    <form action="/newpost" enctype="multipart/form-data" method="POST">
+        <label>Message</label><br>
+        <input type="file" name="myImage" accept="image/*"><br>
         <input type="text" id="message" name="message"><br>
         <input type="submit" value="Post">
     </form>
