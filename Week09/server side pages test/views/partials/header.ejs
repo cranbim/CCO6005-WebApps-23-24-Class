@@ -1,0 +1,20 @@
+<header>
+    <div>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/">Home</a></li>
+            <% if(isLoggedIn){ %>
+                <li><a href="/app">posts</a></li>
+            <% } %>
+            <li><a href="#">About</a></li>
+        </ul>
+        <div>
+            <% if(isLoggedIn){ %>
+                <button type="button" onclick="location.href='/logoutpage'">Logout</button>
+                <button type="button" onclick="location.href='/profilepage'">Profile</button>
+            <% } else { %>
+                <button type="button" onclick="location.href='/loginpage'">Login</button>
+                <button type="button" onclick="location.href='/registerpage'">Register</button>
+            <% } %>
+        </div>
+    </div>
+</header>

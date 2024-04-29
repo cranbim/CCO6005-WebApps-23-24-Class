@@ -1,0 +1,18 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/header') %>
+    <h2>Viewing post</h2>
+    <% if(post.imagePath){ %>
+        <img src="<%= post.imagePath %>" alt="temporary alt tag" class="post-image-thumbnail">
+    <% } else { %>
+        <p>Alas, no image!</p>
+    <% } %>
+    <p>
+        <%= post.message %>
+    </p>
+    <p>
+        by: <%= post.postedBy %>
+    </p>
+    <a href="/app">back to recent posts</a>
+</body>
+<%- include('../partials/footer') %>

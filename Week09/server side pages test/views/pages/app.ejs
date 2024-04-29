@@ -1,0 +1,28 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/header') %>
+    <h1>Welcome to the WebApps social app</h1>
+    <ul>
+        <h3>Recent Posts</h3>
+        <% posts.forEach((post)=> { %>
+            <li>
+                <% if(post.imagePath){ %>
+                    <img src="<%= post.imagePath %>" alt="temporary alt tag" class="post-image-thumbnail">
+                <% } else { %>
+                    <p>Alas, no image!</p>
+                <% } %>
+                <p>
+                    <%= post.message %>
+                </p>
+                <p>
+                    by: <%= post.postedBy %>
+                </p>
+                <% let route=`/viewpost?post=${post._id}` %>
+                <!-- '/viewpost.html?post='+viewPostId -->
+                <a href=<%= route %>>viewPost</a>
+            </li>
+            <hr />
+        <% }) %>
+    </ul>
+</body>
+<%- include('../partials/footer') %>
