@@ -1,0 +1,12 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/header') %>
+    <h2>EJS Simple Social - Login</h2>
+    <form action="/login" method="POST">
+        <label>Username</label>
+        <input type="text" id="username" name="username"><br>
+        <label>Password</label>
+        <input type="text" id="password" name="password"><br>
+        <input type="submit" value="Login">
+    </form>
+</body>

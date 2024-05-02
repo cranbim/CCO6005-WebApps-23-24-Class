@@ -1,0 +1,30 @@
+<%- include('../partials/head') %>
+<body>
+    <%- include('../partials/header') %>
+    <h2>Welcome to the App</h2>
+    <p>
+        Welcome <%= username %>
+    </p>
+    <p>Please add a post</p>
+    <form action="/newpost" enctype="multipart/form-data" method="POST">
+        <label>Message</label><br>
+        <input type="file" name="myImage" accept="image/*"><br>
+        <input type="text" id="message" name="message"><br>
+        <input type="submit" value="Post">
+    </form>
+
+    <h2>Recent posts</h2>
+    <ul>
+        <% posts.forEach(post=>{ %>
+            <li>
+                <% if(post.imagePath) { %>
+                    <img src="<%= post.imagePath %>" alt="temp alt tag" class="post-image-thumbnail"> 
+                <% } else { %>
+                    <p>sorry no image</p>
+                <% } %>
+                <p> <%= post.message %></p>
+                <p> <%= post.postedBy %></p>
+            </li>
+        <% }) %>
+    </ul>
+</body>
