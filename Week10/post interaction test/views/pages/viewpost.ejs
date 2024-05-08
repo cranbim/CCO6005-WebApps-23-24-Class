@@ -1,0 +1,39 @@
+<%- include('../partials/head')%>
+<body>
+    <%- include('../partials/header')%>
+    <h1>Welcome to the app</h1>
+     <h2>Viewing Post</h2>
+    <div>
+        <% if(post.imagePath){ %>
+                <img src="<%= post.imagePath %>" alt="" class="post-image-thumbnail">
+            <% } else { %>
+                <p>sorry no image available</p>
+            <% } %>
+        <p>
+            <%= post.message %>
+        </p>
+        <p>
+            <%= post.postedBy %>
+        </p>
+        <button onclick="location.href='/like?postid=<%= post._id %>'">&#x2665 <%= post.likes %></button>
+        <p>Comments <%= post.comments.length %></p>
+        <ul>
+            <% post.comments.forEach((comment,i)=>{ %>
+                <p>
+                    <%= comment.commentBy %>: <%= comment.message %>
+                </p>
+                <button onclick="location.href='/likeComment?postid=<%= post._id %>&commentindex=<%= i %>'">&#x2665 <%= comment.likes %></button>
+            <% }) %>
+        </ul>
+        <form action="/comment" method="POST">
+            <label>Add New Comment</label><br>
+            <input type="hidden" id="postid" name="postid" value="<%= post._id %>">
+            <input type="text" id="message" name="message"><br>
+            <input type="submit" value="Post">
+        </form>
+        <a href="/app">back to list</a>
+    </div>
+
+</body>
+</html>
+<%- include('../partials/footer')%>
