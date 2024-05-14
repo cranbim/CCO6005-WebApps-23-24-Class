@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .post-image-thumbnail{
+            width: 10%
+        }
+    </style>
+</head>
+<body>
+    <h2>Post Successful</h2>
+    <nav>
+        <a href="login.html">Login</a>
+        <a href="logout.html">Logout</a>
+        <a href="register.html">Register</a>
+        <a href="app">Application</a>
+    </nav>
+
+    <div>
+        <ul id="recent-posts"></ul>
+    </div>
+
+    <script>
+        let recentPosts=[]
+
+        let recentPostsList=document.querySelector('#recent-posts')
+        
+        fetch('/getposts')
+            .then(response=>response.json())
+            .then(fetchedData=>{
+                recentPosts=fetchedData.posts
+                handleServerData()
+            })
+
+        function handleServerData(){
+            recentPostsList.innerHTML=''
+            recentPosts.forEach(function(post){
+                let li=document.createElement('li')
+
+                if(post.imagePath){
+                    let postImage=document.createElement('img')
+                    postImage.src=post.imagePath
+                    postImage.alt="temporary alt tag"
+                    postImage.classList.add("post-image-thumbnail")
+                    li.appendChild(postImage)
+                } else {
+                    let noImage=document.createElement('p')
+                    noImage.textContent="alas, no image!"
+                    li.appendChild(noImage)
+                }
+
+                let liText=document.createElement('p')
+                liText.textContent=`${post.message} (by ${post.postedBy})`
+                li.appendChild(liText)
+                recentPostsList.appendChild(li)
+            })
+        }
+        
+    </script>
+    
+</body>
+</html>
